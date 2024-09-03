@@ -1,1 +1,10 @@
+SSH-:  git@github.com:soumyaswa/RISC-V.git
 
+Have made saperate dirs for both:
+
+After git clone :
+1. git checkout main
+after modifications or work completion:
+1.git add <file paths> 
+2.git commit -m "message" 
+3.git push

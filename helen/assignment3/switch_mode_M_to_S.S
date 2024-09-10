@@ -29,9 +29,10 @@ machine_mode:
 
 switch_to_smode:
 nop
+mul x20, x17,x17
+srai x10,x6,1
 nop
-nop
-nop
+
 
  
  nop                 # No operation (place-holder for next instruction)

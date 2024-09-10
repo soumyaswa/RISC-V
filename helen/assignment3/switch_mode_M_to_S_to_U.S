@@ -31,12 +31,12 @@ switch_to_smode:
   nop
   nop
   li x10,0x0000
-  csrs sstatus, x10
+  csrs sstatus, x10   #spp bit in sstatus csr is 0 (U mode)
  
   la x16, switch_to_umode
-  csrw  sepc, x16
+  csrw  sepc, x16         #loads sepc with address stored in x16
 
-  sret
+  sret           #returns to user mode and starts executing from the address in sepc
   
   nop                 # No operation (place-holder for next instruction)
   

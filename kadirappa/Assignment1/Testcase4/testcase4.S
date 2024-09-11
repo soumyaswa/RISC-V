@@ -1,3 +1,12 @@
+//**********************************************************************
+//    Originator: Kadirappa
+//    assignment : 1
+//    question no : 4 
+//    Born-on Date: 29-10-2024
+//**********************************************************************
+//    Description: Back to Back store with load
+//**********************************************************************
+
 # See LICENSE.vyoma for more details 
 
 #include "test_macros.h"
@@ -8,6 +17,14 @@ RVTEST_CODE_BEGIN
 
   li gp, 3
 
+  /*li x6,100
+  li x6,0x8000*/
+  
+  /*li x6,0X8000
+  li x7,0x1234
+  li x28,0x8001*/
+
+
   //Loading input data to registers from 80002000 to etc Address 
   la x6,inp_data
   la x7,inp_data
@@ -17,22 +34,37 @@ RVTEST_CODE_BEGIN
 
 test1:
   // loading 8-bit value
-  ld x18,0(x6)
-  lw x18,4(x6)
-  lh x18,2(x6)
+  li x18,0x06627918
+  sb x18,0(x6)
   lb x18,0(x6)
-
-test2:
-  lh x19,2(x7)
-  lh x20,2(x7)
-
+  sb x18,4(x7)
+  lb x18,4(x7)
   
-  lw x19,4(x7)
-  lw x20,4(x7)
+  // Loading 16-bit value
+li x18,0x06627918
 
-  
-  ld x19,8(x7)
-  ld x20,8(x7)
+  sh x18,8(x28)
+  lh x18,8(x6)
+  sh x18,12(x29)
+  lh x18,12(x7)
+
+  // loading 32-bit value
+li x18,0x06627918
+
+  sw x18,0(x6)
+  lw x18,0(x6)
+  sw x18,4(x7)
+  lw x18,4(x7)
+
+  // Loading 64-bit value
+li x18,0x06627918
+
+  sd x18,0(x28)
+  ld x18,0(x6)
+  sd x18,8(x29)
+  ld x18,8(x7)
+
+
 
     
   TEST_PASSFAIL
@@ -46,7 +78,7 @@ RVTEST_DATA_BEGIN
 
 
 inp_data:
-  .dword 0x06627918  
+  .word 0x06627918  
   .word 0x06627912   
   .word 0x584944fc  
   .word 0x584944fc  
@@ -88,7 +120,6 @@ inp_data:
   .word 0x28cb8c74   
 
 RVTEST_DATA_END
-
 
 
 

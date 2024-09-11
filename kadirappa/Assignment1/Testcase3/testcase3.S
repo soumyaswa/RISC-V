@@ -1,3 +1,12 @@
+//**********************************************************************
+//    Originator: Kadirappa
+//    assignment : 1
+//    question no : 3 
+//    Born-on Date: 29-10-2024
+//**********************************************************************
+//    Description: Back to Back load with store
+//**********************************************************************
+
 # See LICENSE.vyoma for more details 
 
 #include "test_macros.h"
@@ -25,36 +34,30 @@ RVTEST_CODE_BEGIN
 
 test1:
   // loading 8-bit value
-  li x18,0x06627918
-  sb x18,0(x6)
   lb x18,0(x6)
-  sb x18,4(x7)
+  sb x18,0(x6)
   lb x18,4(x7)
-  
+  sb x18,4(x7)
+    
   // Loading 16-bit value
-li x18,0x06627918
-
-  sh x18,8(x28)
   lh x18,8(x6)
-  sh x18,12(x29)
+  sh x18,8(x28)
   lh x18,12(x7)
-
+  sh x18,12(x29)
+ 
+  
   // loading 32-bit value
-li x18,0x06627918
-
-  sw x18,0(x6)
   lw x18,0(x6)
-  sw x18,4(x7)
+  sw x18,0(x6)
   lw x18,4(x7)
+  sw x18,4(x7)
+  
 
   // Loading 64-bit value
-li x18,0x06627918
-
-  sd x18,0(x28)
   ld x18,0(x6)
-  sd x18,8(x29)
+  sd x18,0(x28)
   ld x18,8(x7)
-
+  sd x18,8(x29)
     
   TEST_PASSFAIL
 
@@ -109,6 +112,5 @@ inp_data:
   .word 0x28cb8c74   
 
 RVTEST_DATA_END
-
 
 

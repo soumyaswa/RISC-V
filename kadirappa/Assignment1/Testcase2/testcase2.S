@@ -1,3 +1,12 @@
+//**********************************************************************
+//    Originator: Kadirappa
+//    assignment : 1
+//    question no : 2 
+//    Born-on Date: 29-10-2024
+//**********************************************************************
+//    Description: Back to Back store
+//**********************************************************************
+
 # See LICENSE.vyoma for more details 
 
 #include "test_macros.h"

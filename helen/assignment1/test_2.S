@@ -21,19 +21,19 @@ test_2:
   #lb x15, 0(x5) 
   #lb x16, 0(x5)
   lh x15, 2(x5) 
-  lh x16, 2(x5)   #lh x16,3(x5) 
+  lh x16, 3(x5)   #lh x16,3(x5) 
 
   addi x12, x5, 4
   li x13,15
   add x13,x13,x12
 
   lw x15, 4(x5) 
-  lw x16, 4(x5)
+  lw x16, 5(x5)
 
   addi x5, x5, 8
 
   ld x15, 12(x5) 
-  ld x16, 12(x5)
+  ld x16, 13(x5)
 
 
   #add x20, x15, x16

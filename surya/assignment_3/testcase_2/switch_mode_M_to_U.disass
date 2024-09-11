@@ -113,61 +113,90 @@ Disassembly of section .text.init:
     8000011c:	f1402573          	csrr	a0,mhartid
     80000120:	30200073          	mret
     80000124:	418d                	li	gp,3
+    80000126:	00141a37          	lui	s4,0x141
+    8000012a:	12da0a1b          	addw	s4,s4,301 # 14112d <_start-0x7febeed3>
+    8000012e:	301a1073          	csrw	misa,s4
+    80000132:	30102af3          	csrr	s5,misa
+    80000136:	055a0b63          	beq	s4,s5,8000018c <Go>
 
-0000000080000126 <m_mode>:
-    80000126:	0000031b          	sext.w	t1,zero
-    8000012a:	00002117          	auipc	sp,0x2
-    8000012e:	ed610113          	add	sp,sp,-298 # 80002000 <begin_signature>
-    80000132:	00002217          	auipc	tp,0x2
-    80000136:	ece20213          	add	tp,tp,-306 # 80002000 <begin_signature>
-    8000013a:	30032073          	csrs	mstatus,t1
-    8000013e:	300023f3          	csrr	t2,mstatus
-    80000142:	004104b3          	add	s1,sp,tp
-    80000146:	40220533          	sub	a0,tp,sp
-    8000014a:	00000597          	auipc	a1,0x0
-    8000014e:	01058593          	add	a1,a1,16 # 8000015a <u_mode>
-    80000152:	34159073          	csrw	mepc,a1
-    80000156:	30200073          	mret
+000000008000013a <m_mode>:
+    8000013a:	0000031b          	sext.w	t1,zero
+    8000013e:	00002117          	auipc	sp,0x2
+    80000142:	ec210113          	add	sp,sp,-318 # 80002000 <begin_signature>
+    80000146:	00002217          	auipc	tp,0x2
+    8000014a:	eba20213          	add	tp,tp,-326 # 80002000 <begin_signature>
+    8000014e:	30032073          	csrs	mstatus,t1
+    80000152:	300023f3          	csrr	t2,mstatus
+    80000156:	004104b3          	add	s1,sp,tp
+    8000015a:	40220533          	sub	a0,tp,sp
+    8000015e:	00000597          	auipc	a1,0x0
+    80000162:	01058593          	add	a1,a1,16 # 8000016e <u_mode>
+    80000166:	34159073          	csrw	mepc,a1
+    8000016a:	30200073          	mret
 
-000000008000015a <u_mode>:
-    8000015a:	40a9                	li	ra,10
+000000008000016e <u_mode>:
+    8000016e:	40a9                	li	ra,10
 
-000000008000015c <f_basic>:
-    8000015c:	00812007          	flw	ft0,8(sp)
-    80000160:	00412087          	flw	ft1,4(sp)
-    80000164:	001072d3          	fadd.s	ft5,ft0,ft1
-    80000168:	08107353          	fsub.s	ft6,ft0,ft1
-    8000016c:	101073d3          	fmul.s	ft7,ft0,ft1
-    80000170:	18107453          	fdiv.s	fs0,ft0,ft1
-    80000174:	5800f253          	fsqrt.s	ft4,ft1
-    80000178:	00301e63          	bne	zero,gp,80000194 <pass>
+0000000080000170 <f_basic>:
+    80000170:	00812007          	flw	ft0,8(sp)
+    80000174:	00412087          	flw	ft1,4(sp)
+    80000178:	001072d3          	fadd.s	ft5,ft0,ft1
+    8000017c:	08107353          	fsub.s	ft6,ft0,ft1
+    80000180:	101073d3          	fmul.s	ft7,ft0,ft1
+    80000184:	18107453          	fdiv.s	fs0,ft0,ft1
+    80000188:	5800f253          	fsqrt.s	ft4,ft1
 
-000000008000017c <fail>:
-    8000017c:	0ff0000f          	fence
-    80000180:	00018063          	beqz	gp,80000180 <fail+0x4>
-    80000184:	0186                	sll	gp,gp,0x1
-    80000186:	0011e193          	or	gp,gp,1
-    8000018a:	05d00893          	li	a7,93
-    8000018e:	850e                	mv	a0,gp
-    80000190:	00000073          	ecall
+000000008000018c <Go>:
+    8000018c:	0001                	nop
+    8000018e:	00301e63          	bne	zero,gp,800001aa <pass>
 
-0000000080000194 <pass>:
-    80000194:	0ff0000f          	fence
-    80000198:	4185                	li	gp,1
-    8000019a:	05d00893          	li	a7,93
-    8000019e:	4501                	li	a0,0
-    800001a0:	00000073          	ecall
-    800001a4:	0000                	unimp
-    800001a6:	0000                	unimp
-    800001a8:	0000                	unimp
-    800001aa:	0000                	unimp
-    800001ac:	0000                	unimp
-    800001ae:	0000                	unimp
-    800001b0:	0000                	unimp
-    800001b2:	0000                	unimp
-    800001b4:	0000                	unimp
-    800001b6:	0000                	unimp
-    800001b8:	0000                	unimp
+0000000080000192 <fail>:
+    80000192:	0ff0000f          	fence
+    80000196:	00018063          	beqz	gp,80000196 <fail+0x4>
+    8000019a:	0186                	sll	gp,gp,0x1
+    8000019c:	0011e193          	or	gp,gp,1
+    800001a0:	05d00893          	li	a7,93
+    800001a4:	850e                	mv	a0,gp
+    800001a6:	00000073          	ecall
+
+00000000800001aa <pass>:
+    800001aa:	0ff0000f          	fence
+    800001ae:	4185                	li	gp,1
+    800001b0:	05d00893          	li	a7,93
+    800001b4:	4501                	li	a0,0
+    800001b6:	00000073          	ecall
+    800001ba:	0000                	unimp
+    800001bc:	0000                	unimp
+    800001be:	0000                	unimp
+    800001c0:	0000                	unimp
+    800001c2:	0000                	unimp
+    800001c4:	0000                	unimp
+    800001c6:	0000                	unimp
+    800001c8:	0000                	unimp
+    800001ca:	0000                	unimp
+    800001cc:	0000                	unimp
+    800001ce:	0000                	unimp
+    800001d0:	0000                	unimp
+    800001d2:	0000                	unimp
+    800001d4:	0000                	unimp
+    800001d6:	0000                	unimp
+    800001d8:	0000                	unimp
+    800001da:	0000                	unimp
+    800001dc:	0000                	unimp
+    800001de:	0000                	unimp
+    800001e0:	0000                	unimp
+    800001e2:	0000                	unimp
+    800001e4:	0000                	unimp
+    800001e6:	0000                	unimp
+    800001e8:	0000                	unimp
+    800001ea:	0000                	unimp
+    800001ec:	0000                	unimp
+    800001ee:	0000                	unimp
+    800001f0:	0000                	unimp
+    800001f2:	0000                	unimp
+    800001f4:	0000                	unimp
+    800001f6:	0000                	unimp
+    800001f8:	0000                	unimp
 
 Disassembly of section .data:
 

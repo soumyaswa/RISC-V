@@ -17,6 +17,11 @@ RVTEST_RV64M
 RVTEST_CODE_BEGIN
 
   li gp,3
+  csrr x23,misa
+  li x20,0x141105             // 1104 for M,I,C extensions and 1105 for M,I,C,A extensions
+  csrw misa ,x20
+  csrr x21, misa
+  beq x20,x21, Go
 
 m_mode :
   
@@ -77,6 +82,8 @@ binary_op:
 max :
   amomax.w x10,x1,0(x30)
 
+Go:
+nop
 
 TEST_PASSFAIL
 

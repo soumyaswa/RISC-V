@@ -17,7 +17,10 @@ RVTEST_RV64MF
 RVTEST_CODE_BEGIN
 
   li gp,3
-  
+  li x20,0x14112d                  // 14112d for M,I,F,D,C,A and 110d for M,I,C,A extensions
+  csrw misa ,x20
+  csrr x21, misa
+  beq x20,x21, Go
 m_mode :
   
   la x6, 0x0
@@ -49,6 +52,8 @@ f_basic:
    fdiv.s f8, f0,f1
    fsqrt.s f4, f1
 
+Go : 
+nop
 
 TEST_PASSFAIL
 

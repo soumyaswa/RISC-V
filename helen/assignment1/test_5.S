@@ -19,14 +19,14 @@ RVTEST_CODE_BEGIN
 #BACK TO BACK LOADS WITH STORE TO THE SAME ADDRESS
 test_5:
   lb x15, 0(x5) 
-  lb x16, 1(x5)
+  lb x15, 1(x5)
   li x7,6
   addi x7,x7,5
   add x6,x7,x7
   sb x15, 0(x5)
 
   lh x15, 4(x5) 
-  lh x16, 2(x5)
+  lh x15, 2(x5)
   li x8,6
   addi x7,x8,5
   add x6,x7,x8
@@ -34,7 +34,7 @@ test_5:
 
   
   lw x15, 8(x5) 
-  lw x16, 12(x5)
+  lw x15, 12(x5)
   li x7,6
   addi x7,x7,5
   add x6,x7,x7
@@ -43,7 +43,7 @@ test_5:
   addi x4, x15, 4
 
   ld x15, 16(x5) 
-  ld x16, 24(x5)
+  ld x15, 24(x5)
   li x7,6
   addi x7,x7,5
   add x6,x7,x7

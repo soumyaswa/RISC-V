@@ -1,0 +1,184 @@
+
+/home/spandana/training1/work/assign2/assign2.elf:     file format elf64-littleriscv
+
+
+Disassembly of section .text.init:
+
+0000000080000000 <_start>:
+    80000000:	a8b9                	j	8000005e <reset_vector>
+    80000002:	0001                	nop
+
+0000000080000004 <trap_vector>:
+    80000004:	34202f73          	csrr	t5,mcause
+    80000008:	4fa1                	li	t6,8
+    8000000a:	03ff0463          	beq	t5,t6,80000032 <write_tohost>
+    8000000e:	4fa5                	li	t6,9
+    80000010:	03ff0163          	beq	t5,t6,80000032 <write_tohost>
+    80000014:	4fad                	li	t6,11
+    80000016:	01ff0e63          	beq	t5,t6,80000032 <write_tohost>
+    8000001a:	00000f13          	li	t5,0
+    8000001e:	000f0363          	beqz	t5,80000024 <trap_vector+0x20>
+    80000022:	8f02                	jr	t5
+    80000024:	34202f73          	csrr	t5,mcause
+    80000028:	000f5363          	bgez	t5,8000002e <handle_exception>
+    8000002c:	a009                	j	8000002e <handle_exception>
+
+000000008000002e <handle_exception>:
+    8000002e:	5391e193          	ori	gp,gp,1337
+
+0000000080000032 <write_tohost>:
+    80000032:	00001f17          	auipc	t5,0x1
+    80000036:	fc3f2723          	sw	gp,-50(t5) # 80001000 <tohost>
+
+000000008000003a <shakti_end>:
+    8000003a:	0000100f          	fence.i
+    8000003e:	00020fb7          	lui	t6,0x20
+    80000042:	00002f17          	auipc	t5,0x2
+    80000046:	fbef0f13          	addi	t5,t5,-66 # 80002000 <begin_signature>
+    8000004a:	01efa023          	sw	t5,0(t6) # 20000 <_start-0x7ffe0000>
+    8000004e:	00002f17          	auipc	t5,0x2
+    80000052:	052f0f13          	addi	t5,t5,82 # 800020a0 <_end>
+    80000056:	01efa423          	sw	t5,8(t6)
+    8000005a:	01efa623          	sw	t5,12(t6)
+
+000000008000005e <reset_vector>:
+    8000005e:	4081                	li	ra,0
+    80000060:	4101                	li	sp,0
+    80000062:	4181                	li	gp,0
+    80000064:	4201                	li	tp,0
+    80000066:	4281                	li	t0,0
+    80000068:	4301                	li	t1,0
+    8000006a:	4381                	li	t2,0
+    8000006c:	4401                	li	s0,0
+    8000006e:	4481                	li	s1,0
+    80000070:	4501                	li	a0,0
+    80000072:	4581                	li	a1,0
+    80000074:	4601                	li	a2,0
+    80000076:	4681                	li	a3,0
+    80000078:	4701                	li	a4,0
+    8000007a:	4781                	li	a5,0
+    8000007c:	4801                	li	a6,0
+    8000007e:	4881                	li	a7,0
+    80000080:	4901                	li	s2,0
+    80000082:	4981                	li	s3,0
+    80000084:	4a01                	li	s4,0
+    80000086:	4a81                	li	s5,0
+    80000088:	4b01                	li	s6,0
+    8000008a:	4b81                	li	s7,0
+    8000008c:	4c01                	li	s8,0
+    8000008e:	4c81                	li	s9,0
+    80000090:	4d01                	li	s10,0
+    80000092:	4d81                	li	s11,0
+    80000094:	4e01                	li	t3,0
+    80000096:	4e81                	li	t4,0
+    80000098:	4f01                	li	t5,0
+    8000009a:	4f81                	li	t6,0
+    8000009c:	00000297          	auipc	t0,0x0
+    800000a0:	f6828293          	addi	t0,t0,-152 # 80000004 <trap_vector>
+    800000a4:	30529073          	csrw	mtvec,t0
+    800000a8:	418d                	li	gp,3
+    800000aa:	00040237          	lui	tp,0x40
+    800000ae:	2205                	addiw	tp,tp,1
+    800000b0:	0236                	slli	tp,tp,0xd
+    800000b2:	0211                	addi	tp,tp,4
+    800000b4:	00022603          	lw	a2,0(tp) # 40000 <_start-0x7ffc0000>
+
+00000000800000b8 <compressed>:
+    800000b8:	4615                	li	a2,5
+    800000ba:	47a9                	li	a5,10
+    800000bc:	c219                	beqz	a2,800000c2 <zero>
+    800000be:	4805                	li	a6,1
+    800000c0:	a011                	j	800000c4 <end1>
+
+00000000800000c2 <zero>:
+    800000c2:	4889                	li	a7,2
+
+00000000800000c4 <end1>:
+    800000c4:	4929                	li	s2,10
+    800000c6:	00000073          	ecall
+    800000ca:	00301f63          	bne	zero,gp,800000e8 <pass>
+
+00000000800000ce <fail>:
+    800000ce:	0ff0000f          	fence
+    800000d2:	00018063          	beqz	gp,800000d2 <fail+0x4>
+    800000d6:	0186                	slli	gp,gp,0x1
+    800000d8:	0011e193          	ori	gp,gp,1
+    800000dc:	05d00893          	li	a7,93
+    800000e0:	00018513          	mv	a0,gp
+    800000e4:	00000073          	ecall
+
+00000000800000e8 <pass>:
+    800000e8:	0ff0000f          	fence
+    800000ec:	4185                	li	gp,1
+    800000ee:	05d00893          	li	a7,93
+    800000f2:	4501                	li	a0,0
+    800000f4:	00000073          	ecall
+    800000f8:	0000                	unimp
+    800000fa:	0000                	unimp
+    800000fc:	0000                	unimp
+
+Disassembly of section .data:
+
+0000000080002000 <begin_signature>:
+    80002000:	7912                	ld	s2,288(sp)
+    80002002:	0662                	slli	a2,a2,0x18
+    80002004:	7912                	ld	s2,288(sp)
+    80002006:	0662                	slli	a2,a2,0x18
+    80002008:	44fc                	lw	a5,76(s1)
+    8000200a:	5849                	li	a6,-14
+    8000200c:	44fc                	lw	a5,76(s1)
+    8000200e:	5849                	li	a6,-14
+    80002010:	5366                	lw	t1,120(sp)
+    80002012:	5366558f          	0x5366558f
+    80002016:	2fb1558f          	0x2fb1558f
+    8000201a:	29df 2fb1 29df      	0x29df2fb129df
+    80002020:	3e92                	fld	ft9,288(sp)
+    80002022:	4005                	c.li	zero,1
+    80002024:	3e92                	fld	ft9,288(sp)
+    80002026:	4005                	c.li	zero,1
+    80002028:	0699                	addi	a3,a3,6
+    8000202a:	1701                	addi	a4,a4,-32
+    8000202c:	0699                	addi	a3,a3,6
+    8000202e:	1701                	addi	a4,a4,-32
+    80002030:	9169                	srli	a0,a0,0x3a
+    80002032:	9169594b          	fnmsub.s	fs2,fs2,fs6,fs2,unknown
+    80002036:	11c7594b          	fnmsub.s	fs2,fa4,ft8,ft2,unknown
+    8000203a:	64cd                	lui	s1,0x13
+    8000203c:	64cd11c7          	fmsub.h	ft3,fs10,fa2,fa2,rtz
+    80002040:	a31e                	fsd	ft7,384(sp)
+    80002042:	a31e6133          	0xa31e6133
+    80002046:	3a3d6133          	0x3a3d6133
+    8000204a:	2a9e                	fld	fs5,448(sp)
+    8000204c:	3a3d                	addiw	s4,s4,-17
+    8000204e:	2a9e                	fld	fs5,448(sp)
+    80002050:	59f86117          	auipc	sp,0x59f86
+    80002054:	59f86117          	auipc	sp,0x59f86
+    80002058:	4611                	li	a2,4
+    8000205a:	3921                	addiw	s2,s2,-24
+    8000205c:	4611                	li	a2,4
+    8000205e:	3921                	addiw	s2,s2,-24
+    80002060:	33f5                	addiw	t2,t2,-3
+    80002062:	6ec6                	ld	t4,80(sp)
+    80002064:	33f5                	addiw	t2,t2,-3
+    80002066:	6ec6                	ld	t4,80(sp)
+    80002068:	4910a7b3          	0x4910a7b3
+    8000206c:	4910a7b3          	0x4910a7b3
+    80002070:	ec72                	sd	t3,24(sp)
+    80002072:	3392                	fld	ft7,288(sp)
+    80002074:	ec72                	sd	t3,24(sp)
+    80002076:	3392                	fld	ft7,288(sp)
+    80002078:	f175                	bnez	a0,8000205c <begin_signature+0x5c>
+    8000207a:	6c3a                	ld	s8,392(sp)
+    8000207c:	f175                	bnez	a0,80002060 <begin_signature+0x60>
+    8000207e:	6c3a                	ld	s8,392(sp)
+    80002080:	74555adb          	0x74555adb
+    80002084:	74555adb          	0x74555adb
+    80002088:	360a50f7          	0x360a50f7
+    8000208c:	360a50f7          	0x360a50f7
+    80002090:	bbec                	fsd	fa1,240(a5)
+    80002092:	39fe                	fld	fs3,504(sp)
+    80002094:	bbec                	fsd	fa1,240(a5)
+    80002096:	39fe                	fld	fs3,504(sp)
+    80002098:	8c74                	0x8c74
+    8000209a:	8c7428cb          	fnmsub.h	fa7,fs0,ft7,fa7,rdn
+    8000209e:	          	fnmsub.s	fa7,ft0,ft0,ft0,rdn

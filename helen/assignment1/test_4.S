@@ -21,13 +21,13 @@ test_4:
   #sb x15, 0(x5) 
   #sb x16, 0(x5)
   sh x15, 2(x5) 
-  sh x16, 2(x5)
+  sh x16, 3(x5)
   addi x5, x5, 4
   sw x15, 4(x5) 
-  sw x16, 4(x5)
+  sw x16, 5(x5)
   addi x5, x5, 4
   sd x15, 8(x5) 
-  sd x16, 8(x5) 
+  sd x16, 9(x5) 
 
   #add x20, x15, x16
 lw_test:

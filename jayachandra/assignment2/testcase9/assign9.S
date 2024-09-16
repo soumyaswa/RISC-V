@@ -1,0 +1,132 @@
+# See LICENSE.vyoma for more details
+ 
+#include "test_macros.h"
+#include "riscv_test.h"
+ 
+RVTEST_RV64U  # 64-bit RISC-V user mode 
+RVTEST_CODE_BEGIN  # beginning of the test code section
+ 
+li gp,3                        // load the value 3 into the gp
+    la x21,inp_data                // load the inp_data into the reg x21
+    la x22,inp_data                // load the inp_data into the reg x22
+ 
+    li x1, 0                       // load the value 0 into the reg x1
+    li x10, 1                      // load the value 1 into the reg x10
+    li x11, 1                      // load the value 1 into the reg x11
+    li x12, 1                      // load the value 1 into the reg x12
+    li x13, 1                      // load the value 1 into the reg x13
+    li x14, 1                      // load the value 1 into the reg x14
+    li x15, 1                      // load the value 1 into the reg x15
+    li x16, 1                      // load the value 1 into the reg x16
+    li x17, 1                      // load the value 1 into the reg x17
+loop1:                             // name of the label "loop1"
+    bge x1,x10, end1               // it will compare x1,x10 if x1 greater than x10 means, it will goto end1
+    li x2, 0                       // load the value 0 into the reg x2
+loop2:                             // name of the label "loop2"
+    bge x2,x11, end2               // it will compare x2,x11 if x1 greater than x10 means, it will goto end2
+    li x3, 0                       // load the value 0 into the reg x3
+loop3:                             // name of the label "loop3"
+    bge x3, x12, end3              // it will compare x3,x12 if x1 greater than x10 means, it will goto end3
+    li x4, 0                       // load the value 0 into the reg x4
+loop4:                             // name of the label "loop4"
+    bge x4, x13, end4              // it will compare x4,x13 if x1 greater than x10 means, it will goto end4
+    li x5, 0                       // load the value 0 into the reg x5
+loop5:                             // name of the label "loop5"
+    bge x5, x14, end5              // it will compare x5,x14 if x1 greater than x10 means, it will goto end5
+    li x6, 0                       // load the value 0 into the reg x6
+loop6:                             // name of the label "loop6"
+    bge x6, x15, end6              // it will compare x6,x15 if x1 greater than x10 means, it will goto end6
+    li x7, 0                       // load the value 0 into the reg x7
+loop7:                             // name of the label "loop7"
+    bge x7, x16, end7              // it will compare x7,x16 if x1 greater than x10 means, it will goto end7
+    li x8, 0                       // load the value 0 into the reg x8
+loop8:                             // name of the label "loop8"
+    bge x8, x17, end8              // it will compare x8,x17 if x1 greater than x10 means, it will goto end8
+    .rept 16                      // it is a repeat statement, it will repeat 64 times
+    add x23,x21,x22                // add the x21,x22 and the result is stored into the reg x23
+    mul x24,x21,x22                // mul the x21,x22 and the result is stored into the reg x24
+    and x25,x21,x22                // and the x21,x22 and the result is stored into the reg x25
+    or x25,x21,x22 
+    
+    .endr                          // end of a repeat statement
+    addi x8,x8,1                  // add the value 1 to x8 and store the result into the reg x8
+    j loop8                        // jump into loop8
+end8:                             // name of the label "end8"
+    addi x7, x7, 1                // add the value 1 to x7 and store the result into the reg x7
+    j loop7                       // jump into loop7
+end7:                             // name of the label "end7"
+    addi x6, x6, 1                // add the value 1 to x6 and store the result into the reg x6
+    j loop6                       // jump into loop6
+end6:                             // name of the label "end6"
+    addi x5,x5, 1                 // add the value 1 to x5 and store the result into the reg x5
+    j loop5                       // jump into loop5
+end5:                             // name of the label "end5"
+    addi x4, x4, 1                // add the value 1 to x4 and store the result into the reg x4
+    j loop4                       // jump into loop4
+end4:                             // name of the label "end4"
+    addi x3, x3, 1                // add the value 1 to x3 and store the result into the reg x3
+    j loop3                       // jump into loop3
+end3:                             // name of the label "end3"
+    addi x2, x2, 1                // add the value 1 to x2 and store the result into the reg x2
+    j loop2                       // jump into loop2
+end2:                             // name of the label "end2"
+    addi x1, x1, 1                // add the value 1 to x1 and store the result into the reg x1
+    j loop1                       // jump into loop1
+end1:                             // name of the label "end1"
+    li x20, 0                     // load the value 0 into the reg x20
+    li x21, 93                    // load the value 93 into the reg x21
+    nop        
+ 
+   TEST_PASSFAIL  # Checks if the test passed or failed
+ 
+RVTEST_CODE_END  # end of the test code section
+ 
+  .data # beginning of the data section
+ 
+RVTEST_DATA_BEGIN
+  TEST_DATA   
+ 
+ 
+inp_data:
+  .word 0x06627912 
+  .word 0x06627912
+  .word 0x584944fc
+  .word 0x584944fc
+  .word 0x558f5366
+  .word 0x558f5366
+  .word 0x29df2fb1
+  .word 0x29df2fb1
+  .word 0x40053e92
+  .word 0x40053e92
+  .word 0x17010699
+  .word 0x17010699
+  .word 0x594b9169
+  .word 0x594b9169
+  .word 0x64cd11c7
+  .word 0x64cd11c7
+  .word 0x6133a31e
+  .word 0x6133a31e
+  .word 0x2a9e3a3d
+  .word 0x2a9e3a3d
+  .word 0x59f86117
+  .word 0x59f86117
+  .word 0x39214611
+  .word 0x39214611
+  .word 0x6ec633f5
+  .word 0x6ec633f5
+  .word 0x4910a7b3
+  .word 0x4910a7b3
+  .word 0x3392ec72
+  .word 0x3392ec72
+  .word 0x6c3af175
+  .word 0x6c3af175
+  .word 0x74555adb
+  .word 0x74555adb
+  .word 0x360a50f7
+  .word 0x360a50f7
+  .word 0x39febbec
+  .word 0x39febbec
+  .word 0x28cb8c74
+  .word 0x28cb8c74
+ 
+RVTEST_DATA_END  # end of the test data section

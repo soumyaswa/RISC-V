@@ -4,7 +4,7 @@
 //    question no : 2 
 //    Born-on Date: 04-10-2024
 //**********************************************************************
-//    Description: Implementing Assembly code for bit 1 field in mstatus reg (wpri)
+//    Description: Implementing Assembly code for bit 1 field in mstatus reg (SIE)
 //**********************************************************************
 
 # See LICENSE.vyoma for more details 
@@ -21,13 +21,13 @@ RVTEST_CODE_BEGIN
 
 
 start:
-//Clear the bit 1 in mstatus(wpri)
+//Clear the bit 1 in mstatus(SIE)
   csrr x6,mstatus
   li x7,2
   not x7,x7
   and x6,x6,x7
   csrw mstatus,x6
-//Setting the bit 1 in mstatus(wpri)
+//Setting the bit 1 in mstatus(SIE)
   csrr x10,mstatus
   li x8,2
   li x11,0

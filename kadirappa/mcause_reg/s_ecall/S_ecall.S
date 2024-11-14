@@ -1,10 +1,10 @@
 //**********************************************************************
 //    Originator: Kadirappa
-//    assignment : 3
-//    question no : 1 
-//    Born-on Date: 10-09-2024
+//    assignment : 
+//    question no : 6 
+//    Born-on Date: 14-11-2024
 //**********************************************************************
-//    Description: Switching Machine mode to Supervisor mode
+//    Description: Supervisor exception ecall
 //**********************************************************************
 
 # See LICENSE.vyoma for more details 

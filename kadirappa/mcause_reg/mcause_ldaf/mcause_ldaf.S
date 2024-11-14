@@ -1,10 +1,10 @@
 //**********************************************************************
 //    Originator: kadirappa
-//    assignment : 5
-//    question no : 1 
-//    Born-on Date: 16-09-2024
+//    assignment : 
+//    question no : 2 
+//    Born-on Date: 14-11-2024
 //**********************************************************************
-//    Description: Load address misaligned 
+//    Description: Load access fault
 //**********************************************************************
 
 # See LICENSE.vyoma for more details  
